@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Agency</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            padding: 1rem;
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            color: #000;
+        }
+        .navbar-toggler {
+            border: none;
+            padding: 0;
+        }
+        .navbar-toggler-icon {
+            font-size: 1.5rem;
+        }
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .circle-button {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .circle-button:hover {
+            transform: scale(1.05);
+        }
+        .circle-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .prototyping { background-color: #0066FF; }
+        .branding { background-color: #9900FF; }
+        .design { background-color: #00FF66; }
+        .strategy { background-color: #FF3300; }
+        .brands {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        .brands h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .logo-container i {
+            font-size: 3rem;
+            color: #888;
+        }
+        @media (max-width: 768px) {
+            .circle-button {
+                width: 150px;
+                height: 150px;
+                font-size: 0.8rem;
+            }
+            .logo-container i {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-question-circle"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="services">
+        <div class="circle-button prototyping">Prototyping</div>
+        <div class="circle-button branding">Branding</div>
+        <div class="circle-button design">Design</div>
+        <div class="circle-button strategy">Strategy</div>
+    </div>
+
+    <div class="brands">
+        <h2>We worked with the world's biggest brands</h2>
+        <div class="logo-container">
+            <i class="fas fa-leaf" title="Ecooxygen"></i>
+            <i class="fas fa-cube" title="Techcube"></i>
+            <i class="fas fa-hand-pointer" title="Touch"></i>
+            <i class="fas fa-cloud" title="Cloudbar"></i>
+            <i class="fas fa-chart-line" title="Growth"></i>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.circle-button');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mousemove', function(e) {
+                    const rect = button.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    button.style.setProperty('--mouse-x', `${x}px`);
+                    button.style.setProperty('--mouse-y', `${y}px`);
+                    
+                    const pseudo = button.querySelector('::before');
+                    if (pseudo) {
+                        pseudo.style.opacity = '1';
+                        pseudo.style.transform = `translate(${x - 90}px, ${y - 90}px)`;
+                    }
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    const pseudo = button.querySelector('::before');
+                    if (pseudo) {
+                        pseudo.style.opacity = '0';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
